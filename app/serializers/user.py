@@ -8,4 +8,4 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['name', 'wallet', 'stocks']
+        fields = ['name', 'wallet', 'stocks', 'money_on_hold']
