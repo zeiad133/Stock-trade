@@ -21,9 +21,9 @@ def show(request, id):
 @api_view(['POST'])
 def deposit(request, id):
   user = User.objects.get(id=id)
-  amount = request.data.get('amount')
   if not isPositiveNumber(amount): return Response("amount: Please enter a valid Positive Number", status = 400)
 
+  amount = request.data.get('amount')
   user.wallet+= int(amount)
   user.save()
   serializer = UserSerializer(user, many=False)
@@ -32,10 +32,10 @@ def deposit(request, id):
 
 @api_view(['POST'])
 def withdraw(request, id):
-  user = User.objects.get(id=id)
   amount = request.data.get('amount')
   if not isPositiveNumber(amount): return Response("amount: Please enter a valid Positive Number", status = 400)
 
+  user = User.objects.get(id=id)
   user.wallet-= int(amount)
   user.save()
   serializer = UserSerializer(user, many=False)
