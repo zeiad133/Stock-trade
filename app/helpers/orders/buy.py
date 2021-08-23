@@ -22,6 +22,7 @@ def buy_orders(stock):
       if stock_availability < total_stocks: continue
 
       serve_order(user, stock_id, order, stock_name, current_price)
+      stock_availability-= total_stocks
 
 def serve_order(user, stock_id, order, stock_name, current_price):
   total_stocks = order.total
