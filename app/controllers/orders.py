@@ -6,29 +6,31 @@ from app.models.order import Order
 from app.serializers.order_form import OrderFormSerializer
 
 @api_view(['POST'])
-def buy(request, id, stock_id):
+def buy(request):
   body = request.data
 
   validation = OrderFormSerializer(data=body)
   if not validation.is_valid(): return  Response(validation.errors, status=400)
 
-  user = User.objects.get(id=id)
+  user_id = body.get('user_id')
+  user = User.objects.get(id=user_id)
   user.money_on_hold += int(body.get('total')) * int(body.get('upper_bound'))
   user.save()
-  insert_order(body, id, stock_id, 'buy')
+  insert_order(body, user_id, body.get('stock_id'), 'buy')
   return Response("Your order has been done")
 
 @api_view(['POST'])
-def sell(request, id, stock_id):
+def sell(request):
   body = request.data
-
+  stock_id = body.get('stock_id')
+  user_id = body.get('user_id')
   validation = OrderFormSerializer(data=body)
   if not validation.is_valid(): return  Response(validation.errors, status=400)
 
-  user_stock = UserStock.objects.get(user_id=id, stock_id= stock_id)
+  user_stock = UserStock.objects.get(user_id=user_id, stock_id= stock_id)
   user_stock.stocks_on_hold += int(body.get('total'))
   user_stock.save()
-  insert_order(body, id, stock_id, 'sell')
+  insert_order(body, user_id, stock_id, 'sell')
   return Response("Your order has been done")
 
 def insert_order(body, user_id, stock_id, request_type):

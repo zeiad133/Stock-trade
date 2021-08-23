@@ -22,7 +22,7 @@ def show(request, id):
 def deposit(request, id):
   user = User.objects.get(id=id)
   amount = request.data.get('amount')
-  if not isPositiveNumber(amount): return Response("Please enter a valid Positive Number", status = 422)
+  if not isPositiveNumber(amount): return Response("amount: Please enter a valid Positive Number", status = 400)
 
   user.wallet+= int(amount)
   user.save()
@@ -34,7 +34,7 @@ def deposit(request, id):
 def withdraw(request, id):
   user = User.objects.get(id=id)
   amount = request.data.get('amount')
-  if not isPositiveNumber(amount): return Response("Please enter a valid Positive Number", status = 422)
+  if not isPositiveNumber(amount): return Response("amount: Please enter a valid Positive Number", status = 400)
 
   user.wallet-= int(amount)
   user.save()
