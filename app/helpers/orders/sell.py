@@ -22,7 +22,7 @@ def sell_orders(stock):
 def serve_order(user, stock_id, order, current_price):
     total_stocks = order.total
     user_stock = user.stocks.get(stock_id=stock_id)
-    user_stock.stocks_on_hold -= order.total
+    user_stock.stocks_on_hold -= total_stocks
     user.wallet += current_price * total_stocks
     user_stock.total -= total_stocks
 

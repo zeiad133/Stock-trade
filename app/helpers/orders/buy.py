@@ -30,7 +30,7 @@ def serve_order(user, stock_id, order, stock_name, current_price):
   user_id = user.id, stock_id= stock_id, stock_name=stock_name
   )[0]
   user.wallet -= current_price * total_stocks
-  user.money_on_hold -= order.total * order.upper_bound
+  user.money_on_hold -= total_stocks * order.upper_bound
   user_stock.total += total_stocks
   user.save()
   user_stock.save()
