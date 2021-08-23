@@ -26,7 +26,7 @@ class Order(models.Model):
 
     def save(self, *args, **kwargs):
       if self.lower_bound > self.upper_bound:
-        raise ValidationError({'lower_bound': "Lower bound be less than current stocks"})
+        raise ValidationError({'lower_bound': "Lower bound be less than upper bownd"})
       self.full_clean()
       return super().save(*args, **kwargs)
 
