@@ -30,7 +30,3 @@ def serve_order(user, stock_id, order, current_price):
     user_stock.save()
     if user_stock.total == 0: user_stock.delete()
     order.delete()
-
-def user_has_enough_shares(user, stock, total):
-  if not stock: return False
-  return stock.total >= total
